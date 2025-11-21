@@ -13,7 +13,7 @@ const Links = [
 const Footer = () => {
   return (
     <footer className="h-fit w-full">
-      <div className="flex items-center p-4 gap-2 border-b border-primary/50">
+      <div className="flex items-center p-4 gap-2">
         <Link href="/" className="hover:font-semibold transition-all">
           Home
         </Link>
@@ -30,8 +30,8 @@ const Footer = () => {
           </div>
         ))}
       </div>
-      <div className=" p-4">
-        <p className="text-xs font-semibold">
+      <div className=" px-4 pb-4">
+        <p className="text-sm font-semibold">
           This website serves solely as a platform where adults may
           independently present their time and companionship to other adults. We
           do not facilitate bookings, arrange meetings, or act as an
@@ -46,7 +46,8 @@ const Footer = () => {
       </div>
       <div className="text-xs border-t border-primary/50 p-4 font-semibold">
         <p>
-          Copyright © {new Date().getFullYear()} Escorts. All rights reserved.
+          Copyright © {new Date().getFullYear()} Escorts | JohnMorris. All
+          rights reserved.
         </p>
       </div>
     </footer>

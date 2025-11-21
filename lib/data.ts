@@ -99,10 +99,10 @@ export const topTenModels: Model[] = [
       "Erotic massage (incl. Nuru)",
       "Golden shower (Watersports)",
       "Couples (Group sex)",
-      "GFE (Girlfriend experience)",
-      "Threesome",
-      "Fetishism",
-      "Sex toys & Dildo vibrators",
+      // "GFE (Girlfriend experience)",
+      // "Threesome",
+      // "Fetishism",
+      // "Sex toys & Dildo vibrators",
     ],
     description:
       "I'm 24 years old, simple and natural girl, with a body that is voluptuous and curvy, and a personality that is charming and passionate. I came very recently into this field in order to supplement my earnings. When it comes to the integrity of my service, I ensure that you are fully satisfied, where you can freely communicate your needs, based on which I can customise our session. ADVANCE PAYMENT IS MANDATORY FOR VIDEO CALL VERIFICATION WITHOUT ADVANCE DON'T ASK VIDEO CALL VERIFICATION, PLEASE.",
@@ -304,7 +304,7 @@ export const topTenModels: Model[] = [
   {
     id: 7,
     name: "Ivy",
-    image: images.Image3,
+    image: images.Image7,
     rating: 4.3,
     location: "Kileleshwa",
     age: 27,
@@ -498,7 +498,7 @@ export const topTenModels: Model[] = [
   {
     id: 12,
     name: "Kamama",
-    image: images.Image3,
+    image: images.Image7,
     rating: 4.9,
     location: "Runda",
     age: 25,

@@ -4,6 +4,7 @@ import Image3 from "@/images/image3.webp";
 import Image4 from "@/images/img1.jpg";
 import Image5 from "@/images/img2.webp";
 import Image6 from "@/images/img3.webp";
+import Image7 from "@/images/img5.webp";
 import Whatsapp from "@/images/whatsapp-brands-solid-full.png";
 import Phone from "@/images/phone-solid-full.png";
 import X from "@/images/x-twitter-brands-solid-full.png";
@@ -12,6 +13,8 @@ import Silhoute2 from "@/images/silhoute2.png";
 import Silhoute3 from "@/images/silhoute3.png";
 import Silhoute4 from "@/images/silhoutegirl-removebg.png";
 import Silhoute5 from "@/images/silhouettegyal22-removebg.png";
+import mansilhoute from "@/images/mansilhoute.png";
+import googleicon from "@/images/google-icon.png";
 
 export const images = {
   Image1,
@@ -28,4 +31,7 @@ export const images = {
   Silhoute3,
   Silhoute4,
   Silhoute5,
+  Image7,
+  mansilhoute,
+  googleicon,
 };

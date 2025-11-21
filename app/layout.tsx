@@ -5,6 +5,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Image from "next/image";
 import { images } from "@/images/images";
+import { Toaster } from "@/components/ui/sonner";
+import ConsentAsk from "@/components/confirmation-consent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +37,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${cookie.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${cookie.variable} antialiased relative`}
       >
-        <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black font-sans w-full">
+        <Toaster />
+        <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black font-sans w-full ">
           <div className="sticky top-0 z-20 bg-zinc-50 dark:bg-black flex w-full border-b border-b-primary/50">
             <div className="max-w-7xl mx-auto w-full border-x border-x-primary/50">
               <Header />
@@ -73,6 +76,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
+        <ConsentAsk />
       </body>
     </html>
   );

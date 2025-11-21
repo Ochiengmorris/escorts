@@ -1,7 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import NavlinksComponent from "../navlinks";
+import { BookUserIcon, LucideArrowRightFromLine, User } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 const Navlinks = [
   { href: "/", label: "Home" },
@@ -28,10 +36,45 @@ const Header = () => {
         ))}
       </div>
       <div className="flex items-center gap-4">
-        <Button className="uppercase cursor-pointer">Login</Button>
-        <Button variant="outline" className="uppercase cursor-pointer">
+        <Link href={"/auth/login"}>
+          <Button className="hidden uppercase cursor-pointer">Login</Button>
+        </Link>
+        <Button variant="outline" className="hidden uppercase cursor-pointer">
           Register
         </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                " uppercase cursor-pointer"
+              )}
+            >
+              <User />
+              <span>Anonymus</span>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="p-0">
+            <DropdownMenuItem className="font-semibold">
+              <Link href="/profile" className="flex items-center gap-2">
+                <User />
+                Profile
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="font-semibold">
+              <Link href="/account" className="flex items-center gap-2">
+                <BookUserIcon />
+                Account
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="font-semibold">
+              <Link href="/logout" className="flex items-center gap-2">
+                <LucideArrowRightFromLine />
+                Logout
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

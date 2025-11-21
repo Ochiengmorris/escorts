@@ -9,7 +9,7 @@ const ModelCard = ({ model }: { model: Model }) => {
   return (
     <Link
       href={`/model/${model.id}`}
-      className="hover:scale-105 transition-all"
+      className="hover:scale-[103%] transition-all"
     >
       <Card key={model.id} className="h-full w-full p-0 overflow-hidden">
         <CardContent className="p-0 h-[320px] relative">

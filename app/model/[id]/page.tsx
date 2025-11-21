@@ -138,7 +138,7 @@ const ModelPage = async ({ params }: { params: { id: string } }) => {
                 </div>
               </div>
 
-              <div className="flex-1 rounded-lg p-4 bg-primary/10">
+              <div className="grow rounded-lg p-4 bg-primary/10">
                 <h1 className="border-l-4 border-black pl-2  text-2xl font-bold">
                   Services Offered
                 </h1>
