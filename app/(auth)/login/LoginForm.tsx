@@ -12,32 +12,56 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import z from "zod";
+import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { images } from "@/images/images";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { authClient } from "@/lib/auth-client";
+import { User } from "better-auth";
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z.string().email("Please enter a valid email"),
+  password: z.string().min(1, "Password is required"),
 });
+
 const LoginForm = () => {
   const searchParams = useSearchParams();
   const [loading, setLoading] = React.useState(false);
-  const callbackUrl = searchParams.get("callbackUrl") || "/drivers";
-  // const form = useForm<z.infer<typeof formSchema>>({
-  //   resolver: zodResolver(formSchema),
-  //   defaultValues: {
-  //     email: "",
-  //     password: "",
-  //   },
-  // });
-  const form = useForm<z.infer<typeof formSchema>>({});
+  const [user, setUser] = React.useState<User | null>(null);
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: values.email,
+        password: values.password,
+        // callbackURL: callbackUrl,
+      });
+      if (error) {
+        toast.error(error.message || "Failed to sign in");
+        return;
+      }
+      setUser(data?.user);
+      toast.success("Signed in successfully!");
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
   const signInWithGoogle = () => {
     toast("Feature coming soon");
   };
@@ -111,6 +135,15 @@ const LoginForm = () => {
             <Input type="checkbox" className="size-4" />
             <span className="w-full">Remember me</span>
           </div>
+
+          {user && (
+            <div className="text-center bg-primary p-2">
+              <p className="text-sm text-white">
+                {JSON.stringify(user, null, 2)}
+              </p>
+            </div>
+          )}
+
           <Button type="submit" className="w-full">
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

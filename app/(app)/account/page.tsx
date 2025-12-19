@@ -64,7 +64,7 @@ const AccountPage = () => {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col items-start p-4 gap-4 w-full rounded-xl overflow-hidden">
+            <div className="flex flex-col items-start border-x p-4 gap-4 w-full overflow-hidden">
               <span className="font-semibold">
                 Subscription time remaining:
               </span>
@@ -188,7 +188,7 @@ const AccountPage = () => {
                 />
 
                 <Button
-                  variant={"outline"}
+                  variant={"default"}
                   type="submit"
                   className="mt-4 font-semibold"
                 >
@@ -196,7 +196,7 @@ const AccountPage = () => {
                 </Button>
               </form>
             </Form>
-            <div className="ml-8 flex flex-col">
+            <div className="ml-8 flex border-l pl-8 flex-col">
               <span className="font-semibold mb-4">Profile Picture</span>
 
               <div className="aspect-square h-30 border-none flex items-center w-fit justify-center rounded-lg bg-primary/20">

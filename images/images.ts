@@ -15,6 +15,7 @@ import Silhoute4 from "@/images/silhoutegirl-removebg.png";
 import Silhoute5 from "@/images/silhouettegyal22-removebg.png";
 import mansilhoute from "@/images/mansilhoute.png";
 import googleicon from "@/images/google-icon.png";
+import logo from "@/images/Logoescorts2.png";
 
 export const images = {
   Image1,
@@ -34,4 +35,5 @@ export const images = {
   Image7,
   mansilhoute,
   googleicon,
+  logo,
 };

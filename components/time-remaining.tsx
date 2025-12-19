@@ -46,7 +46,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
   const formatNumber = (num: number) => String(num).padStart(2, "0");
 
   return (
-    <Card className="bg-black p-8 rounded-lg shadow-2xl w-full">
+    <Card className="bg-card p-8 rounded-lg border-none shadow-2xl w-full">
       <div className="text-center">
         <h2 className="text-primary text-sm font-semibold tracking-wider uppercase">
           EXPIRY DATE & TIME: 2025-12-31 00:00:00
@@ -55,7 +55,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
 
       <div className="flex gap-5 justify-center items-center">
         <div className="text-center">
-          <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-mono">
+          <div className="text-4xl md:text-5xl font-bold text-primary mb-2 font-mono">
             {formatNumber(timeLeft.days)}
           </div>
           <div className="text-gray-400 text-sm font-semibold tracking-widest">
@@ -64,7 +64,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
         </div>
 
         <div className="text-center">
-          <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-mono">
+          <div className="text-4xl md:text-5xl font-bold text-primary mb-2 font-mono">
             {formatNumber(timeLeft.hours)}
           </div>
           <div className="text-gray-400 text-sm font-semibold tracking-widest">
@@ -73,7 +73,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
         </div>
 
         <div className="text-center">
-          <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-mono">
+          <div className="text-4xl md:text-5xl font-bold text-primary mb-2 font-mono">
             {formatNumber(timeLeft.minutes)}
           </div>
           <div className="text-gray-400 text-sm font-semibold tracking-widest">
@@ -82,7 +82,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
         </div>
 
         <div className="text-center">
-          <div className="text-4xl md:text-5xl font-bold text-gray-600 mb-2 font-mono">
+          <div className="text-4xl md:text-5xl font-bold text-primary/50 mb-2 font-mono">
             {formatNumber(timeLeft.seconds)}
           </div>
           <div className="text-gray-500 text-sm font-semibold tracking-widest">
@@ -92,7 +92,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
       </div>
 
       <div className="">
-        <div className="h-1 bg-linear-to-r from-black via-primary to-black rounded-full"></div>
+        <div className="h-1 bg-linear-to-r from-card via-primary to-card rounded-full"></div>
       </div>
     </Card>
   );

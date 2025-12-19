@@ -7,10 +7,8 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Suspense } from "react";
-import RegisterForm from "@/app/auth/register/RegisterForm";
-import Image from "next/image";
-import { images } from "@/images/images";
 import { Button } from "@/components/ui/button";
+import RegisterForm from "./RegisterForm";
 
 const RegisterPage = () => {
   const RegisterFormSkeleton = () => {

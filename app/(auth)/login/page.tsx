@@ -93,7 +93,7 @@ const LoginPage = () => {
                 Create a free user account Now!
               </span>
 
-              <Link href={"/auth/register"} className="mt-4 w-full">
+              <Link href={"/register"} className="mt-4 w-full">
                 <Button variant={"outline"} className="w-full">
                   Register as User
                 </Button>
@@ -110,7 +110,7 @@ const LoginPage = () => {
               <span className="text-center mt-4">
                 Create and get listed as an Escort today!
               </span>
-              <Link href={"/auth/register"} className="mt-4 w-full">
+              <Link href={"/register"} className="mt-4 w-full">
                 <Button className="w-full">Register as Escort</Button>
               </Link>
             </div>

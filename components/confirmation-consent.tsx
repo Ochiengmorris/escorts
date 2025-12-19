@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { images } from "@/images/images";
 
 const ConsentAsk = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -22,10 +23,7 @@ const ConsentAsk = () => {
       <Card className="max-w-lg w-full bg-zinc-200">
         <CardHeader className="flex flex-col justify-center items-center">
           <Link href="/" className="flex items-center gap-1">
-            <Image src="/lipslogo.png" alt="Logo" width={50} height={50} />
-            <h1 className="text-4xl font-black font-cookie uppercase">
-              Escorts
-            </h1>
+            <Image src={images.logo} alt="Logo" width={250} height={250} />
           </Link>
           <p>
             <b>WARNING:</b> This website contains explicit adult material.

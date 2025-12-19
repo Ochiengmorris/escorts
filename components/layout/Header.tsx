@@ -10,6 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { images } from "@/images/images";
+import { authClient } from "@/lib/auth-client";
+import LogoutButton from "./logout-button";
 
 const Navlinks = [
   { href: "/", label: "Home" },
@@ -26,8 +29,7 @@ const Header = () => {
     <div className="flex h-16 w-full items-center px-4 justify-between">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-1">
-        <Image src="/lipslogo.png" alt="Logo" width={50} height={50} />
-        <h1 className="text-4xl font-black font-cookie uppercase">Escorts</h1>
+        <Image src={images.logo} alt="Logo" width={150} height={150} />
       </Link>
       {/* Navlinks */}
       <div className="flex items-center gap-4">
@@ -37,9 +39,9 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-4">
         <Link href={"/auth/login"}>
-          <Button className="hidden uppercase cursor-pointer">Login</Button>
+          <Button className=" uppercase cursor-pointer">Login</Button>
         </Link>
-        <Button variant="outline" className="hidden uppercase cursor-pointer">
+        <Button variant="outline" className=" uppercase cursor-pointer hidden">
           Register
         </Button>
         <DropdownMenu>
@@ -68,10 +70,7 @@ const Header = () => {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="font-semibold">
-              <Link href="/logout" className="flex items-center gap-2">
-                <LucideArrowRightFromLine />
-                Logout
-              </Link>
+              <LogoutButton />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
