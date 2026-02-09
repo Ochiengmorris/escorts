@@ -19,14 +19,20 @@ const Links = [
 const Footer = () => {
   return (
     <footer className="h-fit w-full">
-      <div className="flex flex-col justify-center items-center p-4 gap-4">
-        <div className="flex items-center gap-1">
+      <div className="flex flex-col justify-center md:items-center p-4 gap-4">
+        <div className="flex items-start w-full md:justify-center md:items-center gap-1">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
-            <Image src={images.logo} alt="Logo" width={250} height={250} />
+            <Image
+              src={images.logo}
+              alt="Logo"
+              // width={250}
+              // height={250}
+              className="md:w-40 w-32 h-auto"
+            />
           </Link>
         </div>
-        <div className="flex gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:flex-row lg:justify-center  gap-2 text-xs md:text-sm">
           <Link href="/" className="hover:font-semibold transition-all">
             Home
           </Link>
@@ -80,7 +86,7 @@ const Footer = () => {
         </div>
       </div>
       <div className=" px-4 pb-4">
-        <p className="text-sm font-semibold text-center">
+        <p className="text-xs md:text-sm font-semibold md:text-center">
           This website serves solely as a platform where adults may
           independently present their time and companionship to other adults. We
           do not facilitate bookings, arrange meetings, or act as an
@@ -93,7 +99,7 @@ const Footer = () => {
           laws applicable in your location.
         </p>
       </div>
-      <div className="text-sm border-t text-center border-primary/50 p-4 font-semibold">
+      <div className="text-xs md:text-sm border-t text-center border-primary/50 p-4 font-semibold">
         <p>
           Copyright © {new Date().getFullYear()} Escorts | JohnMorris. All
           rights reserved.

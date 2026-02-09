@@ -2,8 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -16,59 +15,179 @@ import z from "zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { images } from "@/images/images";
 import Image from "next/image";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { signUp } from "@/app/actions/sign-in";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Checkbox } from "@/components/ui/checkbox";
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
+const formSchema = z
+  .object({
+    email: z.string().email("Please enter a valid email address"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+      ),
+    confirmPassword: z.string(),
+    type: z.enum(["user", "escort"]),
+    name: z
+      .string()
+      .min(2, "Name must be at least 2 characters")
+      .max(50, "Name must be less than 50 characters"),
+    terms: z.boolean().refine((val) => val === true, {
+      message: "You must accept the terms and conditions",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type FormValues = z.infer<typeof formSchema>;
+
 const RegisterForm = () => {
   const searchParams = useSearchParams();
-  const [loading, setLoading] = React.useState(false);
-  const callbackUrl = searchParams.get("callbackUrl") || "/drivers";
-  // const form = useForm<z.infer<typeof formSchema>>({
-  //   resolver: zodResolver(formSchema),
-  //   defaultValues: {
-  //     email: "",
-  //     password: "",
-  //   },
-  // });
-  const form = useForm<z.infer<typeof formSchema>>({});
+  const router = useRouter();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
-  const signInWithGoogle = () => {
-    toast("Feature coming soon");
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      type: "user",
+      name: "",
+      terms: false,
+    },
+  });
+
+  const isLoading = form.formState.isSubmitting;
+
+  async function onSubmit(values: FormValues) {
+    try {
+      const result = await signUp(
+        values.name,
+        values.email,
+        values.password,
+        callbackUrl,
+        values.type
+      );
+
+      if (!result.success) {
+        toast.error(result.message || "Sign up failed");
+        return;
+      }
+
+      toast.success(
+        result.message || "Account created successfully! Redirecting..."
+      );
+      router.push(callbackUrl);
+    } catch (error) {
+      console.error("Sign up error:", error);
+      toast.error(
+        error instanceof Error ? error.message : "An unexpected error occurred"
+      );
+    }
+  }
+
+  const handleGoogleSignIn = () => {
+    toast.info("Google sign-in coming soon!");
   };
 
   return (
-    <Form {...form}>
-      <div className="mb-6">
-        <Button
-          variant={"outline"}
-          onClick={signInWithGoogle}
-          className="w-full flex items-center gap-2 mt-3 cursor-pointer"
-          disabled={loading}
-        >
-          <Image src={images.googleicon} alt="Google" className="size-5" />
-          Login with Google
-        </Button>
+    <div className="w-full max-w-md space-y-6">
+      {/* Google Sign In Button */}
+      <Button
+        variant="outline"
+        onClick={handleGoogleSignIn}
+        className="w-full flex items-center justify-center gap-2"
+        disabled={isLoading}
+        type="button"
+      >
+        <Image
+          src={images.googleicon}
+          alt=""
+          className="size-5"
+          aria-hidden="true"
+        />
+        Continue with Google
+      </Button>
+
+      {/* Divider */}
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with email
+          </span>
+        </div>
       </div>
-      <div className="border-2 mb-6 relative">
-        {/* <span className="absolute top-1/2 right-1/2 -translate-y-1/2 p-2 border bg-primary/5 z-10">
-          OR
-        </span> */}
-      </div>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid gap-4">
+
+      {/* Registration Form */}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          {/* Account Type Selection */}
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>Account Type</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    className="gap-3"
+                  >
+                    <div className="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent has-data-[state=checked]:border-primary">
+                      <RadioGroupItem id="user" value="user" />
+                      <div className="grid gap-1.5 leading-none">
+                        <Label
+                          className="cursor-pointer font-medium"
+                          htmlFor="user"
+                        >
+                          Register as a Client
+                        </Label>
+                        <p className="text-muted-foreground text-xs md:text-sm">
+                          Get access to all our tools for the best experience
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent has-data-[state=checked]:border-primary">
+                      <RadioGroupItem id="escort" value="escort" />
+                      <div className="grid gap-1.5 leading-none">
+                        <Label
+                          className="cursor-pointer font-medium"
+                          htmlFor="escort"
+                        >
+                          Register as an Escort
+                        </Label>
+                        <p className="text-muted-foreground text-xs md:text-sm">
+                          Get access to all our ad tools for 100% visibility
+                        </p>
+                      </div>
+                    </div>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Email Field */}
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="grid gap-2">
+              <FormItem>
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <FormControl>
                   <Input
@@ -76,7 +195,8 @@ const RegisterForm = () => {
                     placeholder="johndoe@mail.com"
                     type="email"
                     autoComplete="email"
-                    className="focus:outline-none focus:ring-0 focus-visible:ring-0 p-6"
+                    disabled={isLoading}
+                    className="text-xs md:text-sm"
                     {...field}
                   />
                 </FormControl>
@@ -84,21 +204,22 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
+
+          {/* Name Field */}
           <FormField
             control={form.control}
-            name="password"
+            name="name"
             render={({ field }) => (
-              <FormItem className="grid gap-2">
-                <div className="flex justify-between items-center">
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                </div>
+              <FormItem>
+                <FormLabel htmlFor="name">Full Name</FormLabel>
                 <FormControl>
                   <Input
-                    id="password"
-                    placeholder="Enter password"
-                    autoComplete="current-password"
-                    className="focus:outline-none focus:ring-0 focus-visible:ring-0 p-6"
-                    type="password"
+                    id="name"
+                    placeholder="John Doe"
+                    type="text"
+                    autoComplete="name"
+                    disabled={isLoading}
+                    className="text-xs md:text-sm"
                     {...field}
                   />
                 </FormControl>
@@ -106,45 +227,102 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          {/* checkbox */}
-          <RadioGroup className="gap-2" defaultValue="card-1">
-            <div className="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent">
-              <RadioGroupItem id="card-1" value="card-1" />
-              <div className="grid gap-1.5 leading-none">
-                <Label className="cursor-pointer font-medium" htmlFor="card-1">
-                  Register as a Client
-                </Label>
-                <p className="text-muted-foreground text-sm">
-                  Get access to all our tools for the best experience
-                </p>
-              </div>
-            </div>
-            <div className="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent">
-              <RadioGroupItem id="card-3" value="card-2" />
-              <div className="grid gap-1.5 leading-none">
-                <Label className="cursor-pointer font-medium" htmlFor="card-3">
-                  Register as an Escort
-                </Label>
-                <p className="text-muted-foreground text-sm">
-                  Get access to all our ad tools for 100% visibility
-                </p>
-              </div>
-            </div>
-          </RadioGroup>
-          <div className="flex items-center w-full justify-start gap-3">
-            <Input type="checkbox" className="size-4" />
-            <span className="w-full">I agree to the terms and conditions</span>
+
+          {/* Password Fields */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="password"
+                      placeholder="••••••••"
+                      type="password"
+                      autoComplete="new-password"
+                      disabled={isLoading}
+                      className="text-xs md:text-sm"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="confirmPassword">
+                    Confirm Password
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      id="confirmPassword"
+                      placeholder="••••••••"
+                      type="password"
+                      autoComplete="new-password"
+                      disabled={isLoading}
+                      className="text-xs md:text-sm"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-          <Button type="submit" className="w-full">
-            {loading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+
+          {/* Terms and Conditions */}
+          <FormField
+            control={form.control}
+            name="terms"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center  space-x-3 space-y-0">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={isLoading}
+                    className="size-3 md:size-4"
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel className="text-xs md:text-sm font-normal cursor-pointer">
+                    I agree to the{" "}
+                    <a
+                      href="/terms"
+                      className="text-primary hover:underline font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Terms and Conditions
+                    </a>
+                  </FormLabel>
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* Submit Button */}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 size-3 md:size-4 animate-spin" />
+                Creating account...
+              </>
             ) : (
-              "Sign Up"
+              "Create Account"
             )}
           </Button>
-        </div>
-      </form>
-    </Form>
+        </form>
+      </Form>
+    </div>
   );
 };
 

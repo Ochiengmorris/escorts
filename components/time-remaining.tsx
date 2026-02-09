@@ -49,7 +49,7 @@ const CountdownTimer = ({ from, target }: { from: string; target: string }) => {
     <Card className="bg-card p-8 rounded-lg border-none shadow-2xl w-full">
       <div className="text-center">
         <h2 className="text-primary text-sm font-semibold tracking-wider uppercase">
-          EXPIRY DATE & TIME: 2025-12-31 00:00:00
+          PROFILE VISIBILITY COUNTDOWN
         </h2>
       </div>
 

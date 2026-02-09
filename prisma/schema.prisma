@@ -18,20 +18,39 @@ enum UserType {
 }
 
 model User {
-  id            String    @id
+  id            String  @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean @default(false)
   image         String?
-  type          UserType  @default(user)
-  role          Role      @default(user)
-  banned        Boolean?  @default(false)
-  banReason     String?
-  banExpires    DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+
+  images          String[] @default([])
+  servicesOffered String[] @default([])
+
+  location     String?
+  age          Int?
+  height       String?
+  bodyType     String?
+  skinTone     String?
+  ethnicity    String?
+  phone        String?
+  priceInCall  Int?
+  priceOutCall Int?
+  description  String?
+
+  type UserType @default(user)
+  role Role     @default(user)
+
+  banned     Boolean?  @default(false)
+  banReason  String?
+  banExpires DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+  reviews  EscortReviews[]
 
   @@unique([email])
   @@map("user")
@@ -83,4 +102,17 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model EscortReviews {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating     Int
+  comment    String?
+  reviewedBy String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("escort_reviews")
 }

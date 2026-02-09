@@ -27,7 +27,7 @@ const RegisterPage = () => {
     );
   };
   return (
-    <div className="grid grid-cols-2 pt-16 border min-h-[calc(100vh-200px)] w-full px-4 h-full">
+    <div className="grid grid-cols-1  md:grid-cols-2 py-16 border min-h-[calc(100vh-200px)] w-full px-4 h-full">
       <Card className="mx-auto w-full max-w-lg h-fit p-6">
         <CardHeader>
           <CardTitle className="">
@@ -45,12 +45,7 @@ const RegisterPage = () => {
           <Suspense fallback={<RegisterFormSkeleton />}>
             <RegisterForm />
           </Suspense>
-          {/* <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign up
-            </Link>
-          </div> */}
+
           <div className="mt-4 text-center text-xs">
             Developed by{" "}
             <Link
@@ -77,41 +72,12 @@ const RegisterPage = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="">
-          {/* <div className="grid grid-cols-2 gap-2">
-            <div className="flex flex-col">
-              <div className="h-72">
-                <Image
-                  src={images.mansilhoute}
-                  alt="normal user"
-                  className="h-full"
-                />
-              </div>
-
-              <span className="text-center mt-4">Login as User</span>
-
-              <Link href={"/auth/register"} className="mt-4 w-full">
-                <Button variant={"outline"} className="w-full">
-                  Register as User
-                </Button>
-              </Link>
-            </div>
-            <div className="flex flex-col">
-              <div className="h-72">
-                <Image
-                  src={images.Silhoute1}
-                  alt="advertiser user"
-                  className="h-full"
-                />
-              </div>
-              <span className="text-center mt-4">Login as Escort</span>
-              <Link href={"/auth/register"} className="mt-4 w-full">
-                <Button className="w-full">Register as Escort</Button>
-              </Link>
-            </div>
-          </div> */}
           <div className="mt-4">
-            <Link href="/auth/login" className="mt-4 w-full">
-              <Button variant={"outline"} className="w-full">
+            <Link href="/login" className="mt-4 w-full">
+              <Button
+                variant={"outline"}
+                className="w-full font-bold text-xs md:text-sm"
+              >
                 LOGIN
               </Button>
             </Link>

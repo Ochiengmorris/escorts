@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -20,8 +20,7 @@ import Link from "next/link";
 import { images } from "@/images/images";
 import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authClient } from "@/lib/auth-client";
-import { User } from "better-auth";
+import { signIn } from "@/app/actions/sign-in";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email"),
@@ -30,8 +29,8 @@ const formSchema = z.object({
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [loading, setLoading] = React.useState(false);
-  const [user, setUser] = React.useState<User | null>(null);
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,17 +43,15 @@ const LoginForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      const { data, error } = await authClient.signIn.email({
-        email: values.email,
-        password: values.password,
-        // callbackURL: callbackUrl,
-      });
-      if (error) {
-        toast.error(error.message || "Failed to sign in");
+      const result = await signIn(values.email, values.password, callbackUrl);
+
+      if (!result?.user) {
+        toast.error("Invalid credentials");
         return;
       }
-      setUser(data?.user);
+
       toast.success("Signed in successfully!");
+      router.push(callbackUrl);
     } catch (error) {
       toast.error("An unexpected error occurred");
       console.error(error);
@@ -72,18 +69,14 @@ const LoginForm = () => {
         <Button
           variant={"outline"}
           onClick={signInWithGoogle}
-          className="w-full flex items-center gap-2 mt-3 cursor-pointer"
+          className="w-full flex items-center gap-2 mt-3 cursor-pointer text-xs md:text-sm"
           disabled={loading}
         >
           <Image src={images.googleicon} alt="Google" className="size-5" />
           Login with Google
         </Button>
       </div>
-      <div className="border-2 mb-6 relative">
-        {/* <span className="absolute top-1/2 right-1/2 -translate-y-1/2 p-2 border bg-primary/5 z-10">
-          OR
-        </span> */}
-      </div>
+      <div className="border-2 mb-6 relative"></div>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid gap-4">
           <FormField
@@ -98,7 +91,7 @@ const LoginForm = () => {
                     placeholder="johndoe@mail.com"
                     type="email"
                     autoComplete="email"
-                    className="focus:outline-none focus:ring-0 focus-visible:ring-0 p-6"
+                    className="focus:outline-none focus:ring-0 focus-visible:ring-0 md:p-6 p-4 text-xs md:text-sm"
                     {...field}
                   />
                 </FormControl>
@@ -119,7 +112,7 @@ const LoginForm = () => {
                     id="password"
                     placeholder="Enter password"
                     autoComplete="current-password"
-                    className="focus:outline-none focus:ring-0 focus-visible:ring-0 p-6"
+                    className="focus:outline-none focus:ring-0 focus-visible:ring-0 md:p-6 p-4 text-xs md:text-sm"
                     type="password"
                     {...field}
                   />
@@ -128,23 +121,21 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Link href="#" className="ml-auto inline-block text-sm underline">
+          <Link
+            href="#"
+            className="ml-auto inline-block text-xs md:text-sm underline"
+          >
             Forgot your password?
           </Link>
           <div className="flex items-center w-full justify-start gap-3">
-            <Input type="checkbox" className="size-4" />
-            <span className="w-full">Remember me</span>
+            <Input type="checkbox" className="md:size-4 size-3" />
+            <span className="w-full text-xs md:text-sm">Remember me</span>
           </div>
 
-          {user && (
-            <div className="text-center bg-primary p-2">
-              <p className="text-sm text-white">
-                {JSON.stringify(user, null, 2)}
-              </p>
-            </div>
-          )}
-
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full text-xs md:text-sm font-semibold"
+          >
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (

@@ -387,7 +387,8 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  EscortReviews: 'EscortReviews'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification"
+    modelProps: "user" | "session" | "account" | "verification" | "escortReviews"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -703,6 +704,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EscortReviews: {
+      payload: Prisma.$EscortReviewsPayload<ExtArgs>
+      fields: Prisma.EscortReviewsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EscortReviewsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EscortReviewsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>
+        }
+        findFirst: {
+          args: Prisma.EscortReviewsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EscortReviewsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>
+        }
+        findMany: {
+          args: Prisma.EscortReviewsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>[]
+        }
+        create: {
+          args: Prisma.EscortReviewsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>
+        }
+        createMany: {
+          args: Prisma.EscortReviewsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EscortReviewsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>[]
+        }
+        delete: {
+          args: Prisma.EscortReviewsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>
+        }
+        update: {
+          args: Prisma.EscortReviewsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>
+        }
+        deleteMany: {
+          args: Prisma.EscortReviewsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EscortReviewsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EscortReviewsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>[]
+        }
+        upsert: {
+          args: Prisma.EscortReviewsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscortReviewsPayload>
+        }
+        aggregate: {
+          args: Prisma.EscortReviewsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEscortReviews>
+        }
+        groupBy: {
+          args: Prisma.EscortReviewsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EscortReviewsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EscortReviewsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EscortReviewsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -748,6 +823,18 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  images: 'images',
+  servicesOffered: 'servicesOffered',
+  location: 'location',
+  age: 'age',
+  height: 'height',
+  bodyType: 'bodyType',
+  skinTone: 'skinTone',
+  ethnicity: 'ethnicity',
+  phone: 'phone',
+  priceInCall: 'priceInCall',
+  priceOutCall: 'priceOutCall',
+  description: 'description',
   type: 'type',
   role: 'role',
   banned: 'banned',
@@ -806,6 +893,19 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const EscortReviewsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  rating: 'rating',
+  comment: 'comment',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EscortReviewsScalarFieldEnum = (typeof EscortReviewsScalarFieldEnum)[keyof typeof EscortReviewsScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -858,6 +958,20 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'UserType'
  */
 export type EnumUserTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserType'>
@@ -900,16 +1014,16 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Float'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'Float[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -1011,6 +1125,7 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
+  escortReviews?: Prisma.EscortReviewsOmit
 }
 
 /* Types for Logging */

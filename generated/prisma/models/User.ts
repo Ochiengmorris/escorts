@@ -20,8 +20,22 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  age: number | null
+  priceInCall: number | null
+  priceOutCall: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  age: number | null
+  priceInCall: number | null
+  priceOutCall: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -30,6 +44,16 @@ export type UserMinAggregateOutputType = {
   email: string | null
   emailVerified: boolean | null
   image: string | null
+  location: string | null
+  age: number | null
+  height: string | null
+  bodyType: string | null
+  skinTone: string | null
+  ethnicity: string | null
+  phone: string | null
+  priceInCall: number | null
+  priceOutCall: number | null
+  description: string | null
   type: $Enums.UserType | null
   role: $Enums.Role | null
   banned: boolean | null
@@ -45,6 +69,16 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   emailVerified: boolean | null
   image: string | null
+  location: string | null
+  age: number | null
+  height: string | null
+  bodyType: string | null
+  skinTone: string | null
+  ethnicity: string | null
+  phone: string | null
+  priceInCall: number | null
+  priceOutCall: number | null
+  description: string | null
   type: $Enums.UserType | null
   role: $Enums.Role | null
   banned: boolean | null
@@ -60,6 +94,18 @@ export type UserCountAggregateOutputType = {
   email: number
   emailVerified: number
   image: number
+  images: number
+  servicesOffered: number
+  location: number
+  age: number
+  height: number
+  bodyType: number
+  skinTone: number
+  ethnicity: number
+  phone: number
+  priceInCall: number
+  priceOutCall: number
+  description: number
   type: number
   role: number
   banned: number
@@ -71,12 +117,34 @@ export type UserCountAggregateOutputType = {
 }
 
 
+export type UserAvgAggregateInputType = {
+  age?: true
+  priceInCall?: true
+  priceOutCall?: true
+}
+
+export type UserSumAggregateInputType = {
+  age?: true
+  priceInCall?: true
+  priceOutCall?: true
+}
+
 export type UserMinAggregateInputType = {
   id?: true
   name?: true
   email?: true
   emailVerified?: true
   image?: true
+  location?: true
+  age?: true
+  height?: true
+  bodyType?: true
+  skinTone?: true
+  ethnicity?: true
+  phone?: true
+  priceInCall?: true
+  priceOutCall?: true
+  description?: true
   type?: true
   role?: true
   banned?: true
@@ -92,6 +160,16 @@ export type UserMaxAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  location?: true
+  age?: true
+  height?: true
+  bodyType?: true
+  skinTone?: true
+  ethnicity?: true
+  phone?: true
+  priceInCall?: true
+  priceOutCall?: true
+  description?: true
   type?: true
   role?: true
   banned?: true
@@ -107,6 +185,18 @@ export type UserCountAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  images?: true
+  servicesOffered?: true
+  location?: true
+  age?: true
+  height?: true
+  bodyType?: true
+  skinTone?: true
+  ethnicity?: true
+  phone?: true
+  priceInCall?: true
+  priceOutCall?: true
+  description?: true
   type?: true
   role?: true
   banned?: true
@@ -155,6 +245,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -185,6 +287,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -195,6 +299,18 @@ export type UserGroupByOutputType = {
   email: string
   emailVerified: boolean
   image: string | null
+  images: string[]
+  servicesOffered: string[]
+  location: string | null
+  age: number | null
+  height: string | null
+  bodyType: string | null
+  skinTone: string | null
+  ethnicity: string | null
+  phone: string | null
+  priceInCall: number | null
+  priceOutCall: number | null
+  description: string | null
   type: $Enums.UserType
   role: $Enums.Role
   banned: boolean | null
@@ -203,6 +319,8 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -231,6 +349,18 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  images?: Prisma.StringNullableListFilter<"User">
+  servicesOffered?: Prisma.StringNullableListFilter<"User">
+  location?: Prisma.StringNullableFilter<"User"> | string | null
+  age?: Prisma.IntNullableFilter<"User"> | number | null
+  height?: Prisma.StringNullableFilter<"User"> | string | null
+  bodyType?: Prisma.StringNullableFilter<"User"> | string | null
+  skinTone?: Prisma.StringNullableFilter<"User"> | string | null
+  ethnicity?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  priceInCall?: Prisma.IntNullableFilter<"User"> | number | null
+  priceOutCall?: Prisma.IntNullableFilter<"User"> | number | null
+  description?: Prisma.StringNullableFilter<"User"> | string | null
   type?: Prisma.EnumUserTypeFilter<"User"> | $Enums.UserType
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
@@ -240,6 +370,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
+  reviews?: Prisma.EscortReviewsListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -248,6 +379,18 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrder
+  servicesOffered?: Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
+  age?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyType?: Prisma.SortOrderInput | Prisma.SortOrder
+  skinTone?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethnicity?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  priceInCall?: Prisma.SortOrderInput | Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   role?: Prisma.SortOrder
   banned?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -257,6 +400,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  reviews?: Prisma.EscortReviewsOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -268,6 +412,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  images?: Prisma.StringNullableListFilter<"User">
+  servicesOffered?: Prisma.StringNullableListFilter<"User">
+  location?: Prisma.StringNullableFilter<"User"> | string | null
+  age?: Prisma.IntNullableFilter<"User"> | number | null
+  height?: Prisma.StringNullableFilter<"User"> | string | null
+  bodyType?: Prisma.StringNullableFilter<"User"> | string | null
+  skinTone?: Prisma.StringNullableFilter<"User"> | string | null
+  ethnicity?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  priceInCall?: Prisma.IntNullableFilter<"User"> | number | null
+  priceOutCall?: Prisma.IntNullableFilter<"User"> | number | null
+  description?: Prisma.StringNullableFilter<"User"> | string | null
   type?: Prisma.EnumUserTypeFilter<"User"> | $Enums.UserType
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
@@ -277,6 +433,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
+  reviews?: Prisma.EscortReviewsListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -285,6 +442,18 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrder
+  servicesOffered?: Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
+  age?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyType?: Prisma.SortOrderInput | Prisma.SortOrder
+  skinTone?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethnicity?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  priceInCall?: Prisma.SortOrderInput | Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   role?: Prisma.SortOrder
   banned?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -293,8 +462,10 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -306,6 +477,18 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  images?: Prisma.StringNullableListFilter<"User">
+  servicesOffered?: Prisma.StringNullableListFilter<"User">
+  location?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  age?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  height?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  bodyType?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  skinTone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  ethnicity?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  priceInCall?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  priceOutCall?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  description?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   type?: Prisma.EnumUserTypeWithAggregatesFilter<"User"> | $Enums.UserType
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   banned?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
@@ -321,6 +504,18 @@ export type UserCreateInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -330,6 +525,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  reviews?: Prisma.EscortReviewsCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -338,6 +534,18 @@ export type UserUncheckedCreateInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -347,6 +555,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.EscortReviewsUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -355,6 +564,18 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -364,6 +585,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.EscortReviewsUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -372,6 +594,18 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -381,6 +615,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.EscortReviewsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -389,6 +624,18 @@ export type UserCreateManyInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -404,6 +651,18 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -419,6 +678,18 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -428,12 +699,32 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  images?: Prisma.SortOrder
+  servicesOffered?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  bodyType?: Prisma.SortOrder
+  skinTone?: Prisma.SortOrder
+  ethnicity?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  priceInCall?: Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   role?: Prisma.SortOrder
   banned?: Prisma.SortOrder
@@ -443,12 +734,28 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserAvgOrderByAggregateInput = {
+  age?: Prisma.SortOrder
+  priceInCall?: Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrder
+}
+
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  bodyType?: Prisma.SortOrder
+  skinTone?: Prisma.SortOrder
+  ethnicity?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  priceInCall?: Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   role?: Prisma.SortOrder
   banned?: Prisma.SortOrder
@@ -464,6 +771,16 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  age?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  bodyType?: Prisma.SortOrder
+  skinTone?: Prisma.SortOrder
+  ethnicity?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  priceInCall?: Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   role?: Prisma.SortOrder
   banned?: Prisma.SortOrder
@@ -473,9 +790,23 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserSumOrderByAggregateInput = {
+  age?: Prisma.SortOrder
+  priceInCall?: Prisma.SortOrder
+  priceOutCall?: Prisma.SortOrder
+}
+
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserCreateimagesInput = {
+  set: string[]
+}
+
+export type UserCreateservicesOfferedInput = {
+  set: string[]
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -488,6 +819,24 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type UserUpdateimagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type UserUpdateservicesOfferedInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type EnumUserTypeFieldUpdateOperationsInput = {
@@ -538,12 +887,38 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.UserUpsertWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id: string
   name: string
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -552,6 +927,7 @@ export type UserCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  reviews?: Prisma.EscortReviewsCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -560,6 +936,18 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -568,6 +956,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.EscortReviewsUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -592,6 +981,18 @@ export type UserUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -600,6 +1001,7 @@ export type UserUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.EscortReviewsUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -608,6 +1010,18 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -616,6 +1030,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.EscortReviewsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -624,6 +1039,18 @@ export type UserCreateWithoutAccountsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -632,6 +1059,7 @@ export type UserCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviews?: Prisma.EscortReviewsCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -640,6 +1068,18 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   email: string
   emailVerified?: boolean
   image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
   type?: $Enums.UserType
   role?: $Enums.Role
   banned?: boolean | null
@@ -648,6 +1088,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.EscortReviewsUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -672,6 +1113,18 @@ export type UserUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -680,6 +1133,7 @@ export type UserUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.EscortReviewsUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -688,6 +1142,18 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -696,6 +1162,139 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.EscortReviewsUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReviewsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
+  type?: $Enums.UserType
+  role?: $Enums.Role
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  images?: Prisma.UserCreateimagesInput | string[]
+  servicesOffered?: Prisma.UserCreateservicesOfferedInput | string[]
+  location?: string | null
+  age?: number | null
+  height?: string | null
+  bodyType?: string | null
+  skinTone?: string | null
+  ethnicity?: string | null
+  phone?: string | null
+  priceInCall?: number | null
+  priceOutCall?: number | null
+  description?: string | null
+  type?: $Enums.UserType
+  role?: $Enums.Role
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+}
+
+export type UserUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.UserUpdateimagesInput | string[]
+  servicesOffered?: Prisma.UserUpdateservicesOfferedInput | string[]
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skinTone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethnicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceInCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priceOutCall?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -706,11 +1305,13 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
 export type UserCountOutputType = {
   sessions: number
   accounts: number
+  reviews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  reviews?: boolean | UserCountOutputTypeCountReviewsArgs
 }
 
 /**
@@ -737,6 +1338,13 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AccountWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EscortReviewsWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -744,6 +1352,18 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  images?: boolean
+  servicesOffered?: boolean
+  location?: boolean
+  age?: boolean
+  height?: boolean
+  bodyType?: boolean
+  skinTone?: boolean
+  ethnicity?: boolean
+  phone?: boolean
+  priceInCall?: boolean
+  priceOutCall?: boolean
+  description?: boolean
   type?: boolean
   role?: boolean
   banned?: boolean
@@ -753,6 +1373,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -762,6 +1383,18 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  images?: boolean
+  servicesOffered?: boolean
+  location?: boolean
+  age?: boolean
+  height?: boolean
+  bodyType?: boolean
+  skinTone?: boolean
+  ethnicity?: boolean
+  phone?: boolean
+  priceInCall?: boolean
+  priceOutCall?: boolean
+  description?: boolean
   type?: boolean
   role?: boolean
   banned?: boolean
@@ -777,6 +1410,18 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  images?: boolean
+  servicesOffered?: boolean
+  location?: boolean
+  age?: boolean
+  height?: boolean
+  bodyType?: boolean
+  skinTone?: boolean
+  ethnicity?: boolean
+  phone?: boolean
+  priceInCall?: boolean
+  priceOutCall?: boolean
+  description?: boolean
   type?: boolean
   role?: boolean
   banned?: boolean
@@ -792,6 +1437,18 @@ export type UserSelectScalar = {
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  images?: boolean
+  servicesOffered?: boolean
+  location?: boolean
+  age?: boolean
+  height?: boolean
+  bodyType?: boolean
+  skinTone?: boolean
+  ethnicity?: boolean
+  phone?: boolean
+  priceInCall?: boolean
+  priceOutCall?: boolean
+  description?: boolean
   type?: boolean
   role?: boolean
   banned?: boolean
@@ -801,10 +1458,11 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "type" | "role" | "banned" | "banReason" | "banExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "images" | "servicesOffered" | "location" | "age" | "height" | "bodyType" | "skinTone" | "ethnicity" | "phone" | "priceInCall" | "priceOutCall" | "description" | "type" | "role" | "banned" | "banReason" | "banExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -815,6 +1473,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    reviews: Prisma.$EscortReviewsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -822,6 +1481,18 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     emailVerified: boolean
     image: string | null
+    images: string[]
+    servicesOffered: string[]
+    location: string | null
+    age: number | null
+    height: string | null
+    bodyType: string | null
+    skinTone: string | null
+    ethnicity: string | null
+    phone: string | null
+    priceInCall: number | null
+    priceOutCall: number | null
+    description: string | null
     type: $Enums.UserType
     role: $Enums.Role
     banned: boolean | null
@@ -1225,6 +1896,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EscortReviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1259,6 +1931,18 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly images: Prisma.FieldRef<"User", 'String[]'>
+  readonly servicesOffered: Prisma.FieldRef<"User", 'String[]'>
+  readonly location: Prisma.FieldRef<"User", 'String'>
+  readonly age: Prisma.FieldRef<"User", 'Int'>
+  readonly height: Prisma.FieldRef<"User", 'String'>
+  readonly bodyType: Prisma.FieldRef<"User", 'String'>
+  readonly skinTone: Prisma.FieldRef<"User", 'String'>
+  readonly ethnicity: Prisma.FieldRef<"User", 'String'>
+  readonly phone: Prisma.FieldRef<"User", 'String'>
+  readonly priceInCall: Prisma.FieldRef<"User", 'Int'>
+  readonly priceOutCall: Prisma.FieldRef<"User", 'Int'>
+  readonly description: Prisma.FieldRef<"User", 'String'>
   readonly type: Prisma.FieldRef<"User", 'UserType'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly banned: Prisma.FieldRef<"User", 'Boolean'>
@@ -1699,6 +2383,30 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+}
+
+/**
+ * User.reviews
+ */
+export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EscortReviews
+   */
+  select?: Prisma.EscortReviewsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EscortReviews
+   */
+  omit?: Prisma.EscortReviewsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EscortReviewsInclude<ExtArgs> | null
+  where?: Prisma.EscortReviewsWhereInput
+  orderBy?: Prisma.EscortReviewsOrderByWithRelationInput | Prisma.EscortReviewsOrderByWithRelationInput[]
+  cursor?: Prisma.EscortReviewsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EscortReviewsScalarFieldEnum | Prisma.EscortReviewsScalarFieldEnum[]
 }
 
 /**

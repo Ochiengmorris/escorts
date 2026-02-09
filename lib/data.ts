@@ -67,6 +67,15 @@ export const NairobiAreas = [
   "Kenyatta Market",
 ];
 
+export const dummyImages = [
+  images.Image1,
+  images.Image3,
+  images.Image4,
+  images.Image5,
+  // images.Image6,
+  // images.Image7,
+];
+
 export const topTenModels: Model[] = [
   {
     id: 1,
@@ -227,7 +236,7 @@ export const topTenModels: Model[] = [
   {
     id: 5,
     name: "Lynn",
-    image: images.Image6,
+    image: images.Image5,
     rating: 4.9,
     location: "Karen",
     age: 28,
@@ -265,7 +274,7 @@ export const topTenModels: Model[] = [
   {
     id: 6,
     name: "Sasha",
-    image: images.Image5,
+    image: images.Image6,
     rating: 4.4,
     location: "Lavington",
     age: 25,
@@ -342,7 +351,7 @@ export const topTenModels: Model[] = [
   {
     id: 8,
     name: "Maya",
-    image: images.Image2,
+    image: images.Image4,
     rating: 4.8,
     location: "Ngong Road",
     age: 23,
@@ -420,7 +429,7 @@ export const topTenModels: Model[] = [
   {
     id: 10,
     name: "Zuri",
-    image: images.Image4,
+    image: images.Image6,
     rating: 4.9,
     location: "Runda",
     age: 25,
@@ -459,7 +468,7 @@ export const topTenModels: Model[] = [
   {
     id: 11,
     name: "Nancy",
-    image: images.Image6,
+    image: images.Image7,
     rating: 4.9,
     location: "Lang'ata",
     age: 25,
@@ -498,7 +507,7 @@ export const topTenModels: Model[] = [
   {
     id: 12,
     name: "Kamama",
-    image: images.Image7,
+    image: images.Image2,
     rating: 4.9,
     location: "Runda",
     age: 25,

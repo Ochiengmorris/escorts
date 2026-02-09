@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,13 +8,32 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import LoginForm from "./LoginForm";
 import Image from "next/image";
 import { images } from "@/images/images";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 const LoginPage = () => {
+  const { data: session, isPending } = authClient.useSession();
+
+  useEffect(() => {
+    if (session) {
+      redirect("/");
+    }
+  }, [session]);
+
+  if (isPending) {
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+        <Loader2 className="animate-spin size-4" />
+      </div>
+    );
+  }
+
   const LoginFormSkeleton = () => {
     return (
       <div className="space-y-4 animate-pulse">
@@ -29,7 +50,7 @@ const LoginPage = () => {
     );
   };
   return (
-    <div className="grid grid-cols-2 pt-16 border min-h-[calc(100vh-200px)] w-full px-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 pt-16 border min-h-[calc(100vh-200px)] w-full px-4">
       <Card className="mx-auto w-full max-w-lg h-fit p-6">
         <CardHeader>
           <CardTitle className="">
@@ -47,12 +68,7 @@ const LoginPage = () => {
           <Suspense fallback={<LoginFormSkeleton />}>
             <LoginForm />
           </Suspense>
-          {/* <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign up
-            </Link>
-          </div> */}
+
           <div className="mt-4 text-center text-xs">
             Developed by{" "}
             <Link
@@ -89,16 +105,11 @@ const LoginPage = () => {
                 />
               </div>
 
-              <span className="text-center mt-4">
+              <span className="text-center mt-4 text-xs md:text-sm">
                 Create a free user account Now!
               </span>
-
-              <Link href={"/register"} className="mt-4 w-full">
-                <Button variant={"outline"} className="w-full">
-                  Register as User
-                </Button>
-              </Link>
             </div>
+
             <div className="flex flex-col">
               <div className="h-72">
                 <Image
@@ -107,13 +118,17 @@ const LoginPage = () => {
                   className="h-full"
                 />
               </div>
-              <span className="text-center mt-4">
+              <span className="text-center mt-4 text-xs md:text-sm">
                 Create and get listed as an Escort today!
               </span>
-              <Link href={"/register"} className="mt-4 w-full">
-                <Button className="w-full">Register as Escort</Button>
-              </Link>
             </div>
+          </div>
+          <div className="mt-6 w-full flex items-center justify-center">
+            <Link href={"/register"} className="w-1/2">
+              <Button className="w-full font-bold text-xs md:text-sm">
+                REGISTER
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>

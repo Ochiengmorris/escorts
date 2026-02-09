@@ -16,10 +16,10 @@ const HomeTags = () => {
   const [place, setPlace] = useState("");
   return (
     <div className="border-b border-primary/50 h-fit w-full p-4 flex flex-col gap-2">
-      <h3 className="text-2xl font-bold">
+      <h3 className="md:text-2xl text-xl font-bold">
         Find the best escorts in Nairobi today!
       </h3>
-      <p className="text-xl font-bold text-primary/90 font-cookie">
+      <p className="md:text-xl text-lg font-bold text-primary/90 font-cookie">
         Browse our selection of <span className="uppercase">escorts</span> and
         find the perfect match for you.
       </p>
@@ -37,18 +37,24 @@ const HomeTags = () => {
                 setArea(e.currentTarget.value);
               }
             }}
-            className="pl-10 focus-visible:ring-0 focus-visible:border-primary/50 h-full"
+            className="pl-10 focus-visible:ring-0 focus-visible:border-primary/50 h-full text-xs md:text-sm"
           />
         </div>
 
         <Select value={place} onValueChange={(value) => setPlace(value)}>
-          <SelectTrigger className="max-w-[140px] flex-1 focus-visible:ring-0 focus-visible:border-primary/50">
+          <SelectTrigger className="max-w-[140px] flex-1 focus-visible:ring-0 focus-visible:border-primary/50 text-xs md:text-sm">
             <SelectValue placeholder="Select area" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All areas</SelectItem>
+            <SelectItem value="all" className="text-xs md:text-sm">
+              All areas
+            </SelectItem>
             {Object.values(NairobiAreas).map((area) => (
-              <SelectItem key={area} value={area}>
+              <SelectItem
+                key={area}
+                value={area}
+                className="text-xs md:text-sm"
+              >
                 {area}
               </SelectItem>
             ))}

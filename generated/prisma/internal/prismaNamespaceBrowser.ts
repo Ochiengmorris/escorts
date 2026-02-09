@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  EscortReviews: 'EscortReviews'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -79,6 +80,18 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  images: 'images',
+  servicesOffered: 'servicesOffered',
+  location: 'location',
+  age: 'age',
+  height: 'height',
+  bodyType: 'bodyType',
+  skinTone: 'skinTone',
+  ethnicity: 'ethnicity',
+  phone: 'phone',
+  priceInCall: 'priceInCall',
+  priceOutCall: 'priceOutCall',
+  description: 'description',
   type: 'type',
   role: 'role',
   banned: 'banned',
@@ -135,6 +148,19 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const EscortReviewsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  rating: 'rating',
+  comment: 'comment',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EscortReviewsScalarFieldEnum = (typeof EscortReviewsScalarFieldEnum)[keyof typeof EscortReviewsScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -13,16 +13,16 @@ const StarRating = ({ rating = 0 }) => {
         );
 
         return (
-          <div key={index} className="relative w-6 h-6">
+          <div key={index} className="relative size-5 md:size-6">
             {/* Empty star background */}
-            <Star className="w-5 h-5 text-zinc-400 absolute" />
+            <Star className="md:size-5 size-4 text-zinc-400 absolute" />
 
             {/* Filled star with clip-path for partial fill */}
             <div
               className="absolute overflow-hidden"
               style={{ width: `${fillPercentage * 100}%` }}
             >
-              <Star className="w-5 h-5 text-primary fill-primary" />
+              <Star className="md:size-5 size-4 text-primary fill-primary" />
             </div>
           </div>
         );

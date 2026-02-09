@@ -20,15 +20,27 @@ const ModelCard = ({ model }: { model: Model }) => {
           />
           <div className="absolute top-0 left-0 right-0 h-full w-full bg-linear-to-b from-transparent via-transparent  to-black transition-all duration-1000" />
           <div className="absolute bottom-0 left-0 right-0 p-4  flex transition-all duration-1000 items-center justify-between">
-            <div>
-              <h3 className="font-bold text-white">
+            <div className="w-full">
+              <h3 className="font-bold hidden md:block text-base bg-clip-text text-transparent bg-linear-to-r from-primary to-accent">
                 {model.name} - {model.phone}
               </h3>
-              <p className="text-sm text-white/60">
+              <div className="md:hidden flex items-center justify-between w-full gap-2">
+                <h3 className="font-bold text-xs">
+                  <span className="text-base bg-clip-text text-transparent bg-linear-to-r from-primary to-accent">
+                    {model.name}
+                  </span>
+                  <br />
+                  <span className="text-white">{model.phone}</span>
+                </h3>
+                <Button className="rounded-full cursor-pointer">
+                  <LucidePhoneCall className="size-3" />
+                </Button>
+              </div>
+              <p className="text-xs md:text-sm text-white/60">
                 {model.location} | Nairobi
               </p>
             </div>
-            <Button className="rounded-full cursor-pointer">
+            <Button className="rounded-full cursor-pointer hidden md:block">
               <LucidePhoneCall className="size-3" />
             </Button>
           </div>
